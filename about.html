@@ -305,6 +305,12 @@
             font-size: 2rem;
             font-weight: 700;
         }
+        .about-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
 
         /* Contact section */
         .contact {
@@ -434,14 +440,27 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2>24 Years of Trusted Service</h2>
-                    <p>Since 2001, VIRUNGA Express has been Rwanda's leading transport company, proudly serving the northern and western regions with unwavering commitment to excellence. Named after the majestic Virunga Mountains that define our landscape, we embody the same strength and reliability that characterizes our beautiful region.</p>
+                    <h2>+20 Years of Trusted Service</h2>
+                    <p>VIRUNGA Express has been Rwanda's leading transport company, proudly serving the Northern, Southern and Western regions with unwavering commitment to excellence. Named after the majestic Virunga Mountains that define our landscape, we embody the same strength and reliability that characterizes our beautiful region.</p>
                     <p>Our extensive network connects major cities to remote communities, navigating challenging terrains and diverse weather conditions with expertise gained through 15 years of dedicated service. Whether you're traveling for business, visiting family, or shipping cargo, our proven track record of excellence ensures you reach your destination safely and on time.</p>
                     <p>From bustling urban centers to remote villages nestled in the hills, VIRUNGA Express bridges distances and connects communities, making us an integral part of Rwanda's transportation infrastructure.</p>
                     <a href="book.html" class="btn btn-primary">Travel With Us</a>
                 </div>
+                
+                <!-- Video in About Section -->
                 <div class="about-image">
-                    Rwanda Transport 🚌🏔️
+                    <!-- Replace this src with your actual video URL -->
+                    <video class="about-video" autoplay muted loop playsinline>
+                        <source src="video/intro-virunga-express.mp4" type="video/mp4">
+                        <!-- Fallback for browsers that don't support video -->
+                        <div class="video-placeholder">
+                            🎥 Company Video<br>
+                            <small>Your browser doesn't support videos</small>
+                        </div>
+                    </video>
+                    
+                    <!-- Video overlay with information -->
+                    
                 </div>
             </div>
         </div>
