@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Journey - VIRUNGA Express</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a5f3f, #2d8659);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Booking Container */
+        .booking-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .booking-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .booking-summary {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+            border-bottom: 2px solid #2d8659;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #2d8659;
+            box-shadow: 0 0 0 3px rgba(45, 134, 89, 0.1);
+        }
+
+        /* Route Selection */
+        .route-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .route-card:hover {
+            border-color: #2d8659;
+            box-shadow: 0 4px 12px rgba(45, 134, 89, 0.1);
+        }
+
+        .route-card.selected {
+            border-color: #2d8659;
+            background: rgba(45, 134, 89, 0.05);
+        }
+
+        .route-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .route-details h4 {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .route-details p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .route-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2d8659;
+        }
+
+        /* Seat Selection */
+        .bus-layout {
+            max-width: 300px;
+            margin: 0 auto;
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid #e5e7eb;
+        }
+
+        .driver-area {
+            text-align: center;
+            padding: 0.5rem;
+            background: #374151;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .seats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .seat {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .seat:nth-child(2n) {
+            margin-right: 1rem;
+        }
+
+        .seat.available:hover {
+            border-color: #2d8659;
+            background: rgba(45, 134, 89, 0.1);
+        }
+
+        .seat.selected {
+            background: #2d8659;
+            color: white;
+            border-color: #2d8659;
+        }
+
+        .seat.occupied {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
+            cursor: not-allowed;
+        }
+
+        .seat-legend {
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-seat {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            background: white;
+        }
+
+        .payment-card:hover {
+            border-color: #2d8659;
+            box-shadow: 0 4px 12px rgba(45, 134, 89, 0.1);
+        }
+
+        .payment-card.selected {
+            border-color: #2d8659;
+            background: rgba(45, 134, 89, 0.05);
+        }
+
+        .payment-logo {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-card h4 {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .payment-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Booking Summary */
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #2d8659;
+        }
+
+        .summary-item span:first-child {
+            color: #64748b;
+        }
+
+        .summary-item span:last-child {
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #2d8659;
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: #1a5f3f;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(45, 134, 89, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f8fafc;
+            color: #374151;
+            border: 2px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 2rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #64748b;
+        }
+
+        .step.active {
+            color: #2d8659;
+            font-weight: 600;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .step.active .step-number {
+            background: #2d8659;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .booking-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+            
+            .progress-steps {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal h3 {
+            color: #2d8659;
+            margin-bottom: 1rem;
+        }
+
+        .ussd-code {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 1rem 0;
+            border: 2px solid #e5e7eb;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        .hero {
+            min-height: 50vh;
+            background: linear-gradient(-45deg, #1a5f3f, #2d8659, #1e3a8a, #3730a3);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">VIRUNGA Express</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="book.html">Book Now</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <!-- Header -->
+    <section id="home" class="hero">
+        <div class="container">
+        <!-- Header -->
+        <div class="particles"></div>
+        <div class="hero-content">
+            <h1>Book Your Journey</h1>
+            <p>VIRUNGA Express - Reliable transport across Rwanda's northern & western regions</p>
+        </div>
+    </section>
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="step active" id="step1">
+                <div class="step-number">1</div>
+                <span>Select Route</span>
+            </div>
+            <div class="step" id="step2">
+                <div class="step-number">2</div>
+                <span>Choose Seat</span>
+            </div>
+            <div class="step" id="step3">
+                <div class="step-number">3</div>
+                <span>Payment</span>
+            </div>
+        </div>
+
+        <!-- Booking Container -->
+        <div class="booking-container">
+            <!-- Booking Form -->
+            <div class="booking-form">
+                <!-- Step 1: Route Selection -->
+                <div id="route-section" class="booking-section">
+                    <h2 class="section-title">Select Your Route & Time</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="from">From</label>
+                            <select id="from" required>
+                                <option value="">Select departure city</option>
+                                <option value="kigali">Kigali</option>
+                                <option value="musanze">Musanze</option>
+                                <option value="rubavu">Rubavu</option>
+                                <option value="muhanga">Muhanga</option>
+                                <option value="nyabihu">Nyabihu</option>
+                                <option value="gicumbi">Gicumbi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="to">To</label>
+                            <select id="to" required>
+                                <option value="">Select destination</option>
+                                <option value="kigali">Kigali</option>
+                                <option value="musanze">Musanze</option>
+                                <option value="rubavu">Rubavu</option>
+                                <option value="muhanga">Muhanga</option>
+                                <option value="nyabihu">Nyabihu</option>
+                                <option value="gicumbi">Gicumbi</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Travel Date</label>
+                            <input type="date" id="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="passengers">Passengers</label>
+                            <select id="passengers">
+                                <option value="1">1 Passenger</option>
+                                <option value="2">2 Passengers</option>
+                                <option value="3">3 Passengers</option>
+                                <option value="4">4 Passengers</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="available-routes">
+                        <!-- Routes will be populated here -->
+                    </div>
+
+                    <button class="btn btn-primary" onclick="nextStep(2)" id="route-next" disabled>Continue to Seat Selection</button>
+                </div>
+
+                <!-- Step 2: Seat Selection -->
+                <div id="seat-section" class="booking-section" style="display: none;">
+                    <h2 class="section-title">Choose Your Seat</h2>
+                    
+                    <div class="bus-layout">
+                        <div class="driver-area">🚗 Driver</div>
+                        <div class="seats-grid" id="seats-grid">
+                            <!-- Seats will be generated here -->
+                        </div>
+                        <div class="seat-legend">
+                            <div class="legend-item">
+                                <div class="legend-seat" style="background: white; border: 2px solid #d1d5db;"></div>
+                                <span>Available</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-seat" style="background: #2d8659;"></div>
+                                <span>Selected</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-seat" style="background: #ef4444;"></div>
+                                <span>Occupied</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                        <button class="btn btn-secondary" onclick="prevStep(1)" style="flex: 1;">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep(3)" id="seat-next" disabled style="flex: 2;">Continue to Payment</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment -->
+                <div id="payment-section" class="booking-section" style="display: none;">
+                    <h2 class="section-title">Payment Method</h2>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-card" onclick="selectPayment('mtn')">
+                            <div class="payment-logo">📱</div>
+                            <h4>MTN Mobile Money</h4>
+                            <p>Pay with MTN MoMo</p>
+                        </div>
+                        <div class="payment-card" onclick="selectPayment('airtel')">
+                            <div class="payment-logo">💳</div>
+                            <h4>Airtel Money</h4>
+                            <p>Pay with Airtel Money</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="+250 XXX XXX XXX" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email (Optional)</label>
+                        <input type="email" id="email" placeholder="your@email.com">
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn btn-secondary" onclick="prevStep(2)" style="flex: 1;">Back</button>
+                        <button class="btn btn-primary" onclick="processPayment()" id="payment-btn" disabled style="flex: 2;">Complete Booking</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Summary -->
+            <div class="booking-summary">
+                <h2 class="section-title">Booking Summary</h2>
+                
+                <div id="summary-content">
+                    <div class="summary-item">
+                        <span>Route:</span>
+                        <span id="summary-route">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Date:</span>
+                        <span id="summary-date">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Time:</span>
+                        <span id="summary-time">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Seat(s):</span>
+                        <span id="summary-seats">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Passengers:</span>
+                        <span id="summary-passengers">1</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Payment:</span>
+                        <span id="summary-payment">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Total Amount:</span>
+                        <span id="summary-total">RWF 0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <h3>Complete Your Payment</h3>
+            <p>Dial the USSD code below on your phone to complete the payment:</p>
+            <div class="ussd-code" id="ussd-code">*XXX#</div>
+            <p>Follow the prompts to pay <strong id="modal-amount">RWF 0</strong></p>
+            <button class="btn btn-primary" onclick="closeModal()">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentStep = 1;
+        let selectedRoute = null;
+        let selectedSeats = [];
+        let selectedPayment = null;
+        let bookingData = {};
+
+        // Sample route data
+        const routes = {
+            'kigali-musanze': [
+                { id: '1', time: '06:00', price: 2500, duration: '2h 30m', bus: 'VE001' },
+                { id: '2', time: '09:00', price: 2500, duration: '2h 30m', bus: 'VE002' },
+                { id: '3', time: '14:00', price: 2500, duration: '2h 30m', bus: 'VE003' },
+                { id: '4', time: '17:00', price: 2500, duration: '2h 30m', bus: 'VE004' }
+            ],
+            'kigali-rubavu': [
+                { id: '5', time: '07:00', price: 3200, duration: '3h 15m', bus: 'VE005' },
+                { id: '6', time: '11:00', price: 3200, duration: '3h 15m', bus: 'VE006' },
+                { id: '7', time: '15:30', price: 3200, duration: '3h 15m', bus: 'VE007' }
+            ],
+            'musanze-kigali': [
+                { id: '8', time: '06:30', price: 2500, duration: '2h 30m', bus: 'VE008' },
+                { id: '9', time: '10:00', price: 2500, duration: '2h 30m', bus: 'VE009' },
+                { id: '10', time: '15:00', price: 2500, duration: '2h 30m', bus: 'VE010' }
+            ]
+        };
+
+        // Occupied seats (sample data)
+        const occupiedSeats = [1, 5, 12, 18, 25, 30];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').min = today;
+            document.getElementById('date').value = today;
+
+            // Generate seats
+            generateSeats();
+
+            // Add event listeners
+            document.getElementById('from').addEventListener('change', searchRoutes);
+            document.getElementById('to').addEventListener('change', searchRoutes);
+            document.getElementById('date').addEventListener('change', updateSummary);
+            document.getElementById('passengers').addEventListener('change', updateSummary);
+        });
+
+        function searchRoutes() {
+            const from = document.getElementById('from').value;
+            const to = document.getElementById('to').value;
+            const routesContainer = document.getElementById('available-routes');
+
+            if (!from || !to) {
+                routesContainer.innerHTML = '';
+                document.getElementById('route-next').disabled = true;
+                return;
+            }
+
+            if (from === to) {
+                routesContainer.innerHTML = '<p style="color: #ef4444; text-align: center; padding: 1rem;">Please select different departure and destination cities.</p>';
+                document.getElementById('route-next').disabled = true;
+                return;
+            }
+
+            const routeKey = `${from}-${to}`;
+            const availableRoutes = routes[routeKey] || [];
+
+            if (availableRoutes.length === 0) {
+                routesContainer.innerHTML = '<p style="color: #64748b; text-align: center; padding: 1rem;">No routes available for this route. Please contact us for alternative options.</p>';
+                document.getElementById('route-next').disabled = true;
+                return;
+            }
+
+            routesContainer.innerHTML = '<h3 style="margin-bottom: 1rem; color: #1e293b;">Available Departures:</h3>';
+            
+            availableRoutes.forEach(route => {
+                const routeCard = document.createElement('div');
+                routeCard.className = 'route-card';
+                routeCard.onclick = () => selectRoute(route);
+                
+                routeCard.innerHTML = `
+                    <div class="route-info">
+                        <div class="route-details">
+                            <h4>Departure: ${route.time}</h4>
+                            <p>Duration: ${route.duration} • Bus: ${route.bus}</p>
+                        </div>
+                        <div class="route-price">RWF ${route.price.toLocaleString()}</div>
+                    </div>
+                `;
+                
+                routesContainer.appendChild(routeCard);
+            });
+        }
+
+        function selectRoute(route) {
+            // Remove previous selection
+            document.querySelectorAll('.route-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Select current route
+            event.target.closest('.route-card').classList.add('selected');
+            selectedRoute = route;
+            
+            // Enable next button
+            document.getElementById('route-next').disabled = false;
+            
+            // Update summary
+            updateSummary();
+        }
+
+        function generateSeats() {
+            const seatsGrid = document.getElementById('seats-grid');
+            seatsGrid.innerHTML = '';
+            
+            for (let i = 1; i <= 29; i++) {
+                const seat = document.createElement('div');
+                seat.className = 'seat';
+                seat.textContent = i;
+                
+                if (occupiedSeats.includes(i)) {
+                    seat.classList.add('occupied');
+                } else {
+                    seat.classList.add('available');
+                    seat.onclick = () => toggleSeat(i);
+                }
+                
+                seatsGrid.appendChild(seat);
+            }
+        }
+
+        function toggleSeat(seatNumber) {
+            const seat = document.querySelector(`.seat:nth-child(${seatNumber})`);
+            const maxPassengers = parseInt(document.getElementById('passengers').value);
+            
+            if (seat.classList.contains('selected')) {
+                seat.classList.remove('selected');
+                selectedSeats = selectedSeats.filter(s => s !== seatNumber);
+            } else if (selectedSeats.length < maxPassengers) {
+                seat.classList.add('selected');
+                selectedSeats.push(seatNumber);
+            } else {
+                alert(`You can only select ${maxPassengers} seat(s)`);
+                return;
+            }
+            
+            // Enable/disable next button
+            document.getElementById('seat-next').disabled = selectedSeats.length === 0;
+            
+            // Update summary
+            updateSummary();
+        }
+
+        function selectPayment(method) {
+            document.querySelectorAll('.payment-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            event.target.closest('.payment-card').classList.add('selected');
+            selectedPayment = method;
+            
+            // Enable payment button if phone number is provided
+            const phone = document.getElementById('phone').value;
+            document.getElementById('payment-btn').disabled = !phone;
+            
+            updateSummary();
+        }
+
+        function nextStep(step) {
+            // Hide current step
+            document.getElementById(`${getStepName(currentStep)}-section`).style.display = 'none';
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            
+            // Show next step
+            currentStep = step;
+            document.getElementById(`${getStepName(currentStep)}-section`).style.display = 'block';
+            document.getElementById(`step${currentStep}`).classList.add('active');
+        }
+
+        function prevStep(step) {
+            // Hide current step
+            document.getElementById(`${getStepName(currentStep)}-section`).style.display = 'none';
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            
+            // Show previous step
+            currentStep = step;
+            document.getElementById(`${getStepName(currentStep)}-section`).style.display = 'block';
+            document.getElementById(`step${currentStep}`).classList.add('active');
+        }
+
+        function getStepName(step) {
+            const steps = ['', 'route', 'seat', 'payment'];
+            return steps[step];
+        }
+
+        function updateSummary() {
+            const from = document.getElementById('from');
+            const to = document.getElementById('to');
+            const date = document.getElementById('date').value;
+            const passengers = document.getElementById('passengers').value;
+            
+            // Update route
+            if (from.value && to.value) {
+                document.getElementById('summary-route').textContent = 
+                    `${from.options[from.selectedIndex].text} → ${to.options[to.selectedIndex].text}`;
+            }
+            
+            // Update date
+            if (date) {
+                document.getElementById('summary-date').textContent = new Date(date).toLocaleDateString();
+            }
+            
+            // Update time
+            if (selectedRoute) {
+                document.getElementById('summary-time').textContent = selectedRoute.time;
+            }
+            
+            // Update seats
+            if (selectedSeats.length > 0) {
+                document.getElementById('summary-seats').textContent = selectedSeats.sort((a, b) => a - b).join(', ');
+            }
+            
+            // Update passengers
+            document.getElementById('summary-passengers').textContent = passengers;
+        // Continue from where we left off...
+
+            // Update payment method
+            if (selectedPayment) {
+                const paymentText = selectedPayment === 'mtn' ? 'MTN Mobile Money' : 'Airtel Money';
+                document.getElementById('summary-payment').textContent = paymentText;
+            }
+            
+            // Update total amount
+            if (selectedRoute) {
+                const total = selectedRoute.price * selectedSeats.length;
+                document.getElementById('summary-total').textContent = `RWF ${total.toLocaleString()}`;
+            }
+        }
+
+        function processPayment() {
+            // Validate phone number
+            const phone = document.getElementById('phone').value;
+            if (!phone || !phone.startsWith('+250') || phone.length !== 13) {
+                alert('Please enter a valid Rwandan phone number starting with +250');
+                return;
+            }
+            
+            // Prepare booking data
+            bookingData = {
+                route: document.getElementById('summary-route').textContent,
+                date: document.getElementById('date').value,
+                time: selectedRoute.time,
+                seats: selectedSeats,
+                passengers: document.getElementById('passengers').value,
+                paymentMethod: selectedPayment === 'mtn' ? 'MTN Mobile Money' : 'Airtel Money',
+                phone: phone,
+                email: document.getElementById('email').value,
+                total: selectedRoute.price * selectedSeats.length,
+                bus: selectedRoute.bus
+            };
+            
+            // Show payment modal
+            showPaymentModal();
+        }
+
+        function showPaymentModal() {
+            const modal = document.getElementById('paymentModal');
+            const ussdCode = selectedPayment === 'mtn' ? '*182*6*1*123456#' : '*185*9*1*123456#';
+            
+            document.getElementById('ussd-code').textContent = ussdCode;
+            document.getElementById('modal-amount').textContent = `RWF ${bookingData.total.toLocaleString()}`;
+            modal.style.display = 'block';
+            
+            // In a real app, you would verify payment here
+            // For demo, we'll just simulate successful payment after 5 seconds
+            setTimeout(() => {
+                closeModal();
+                completeBooking();
+            }, 5000);
+        }
+
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        function completeBooking() {
+            // In a real app, you would send this data to your backend
+            console.log('Booking completed:', bookingData);
+            
+            // Show success message
+            alert(`Booking confirmed!\n\nRoute: ${bookingData.route}\nDate: ${new Date(bookingData.date).toLocaleDateString()}\nTime: ${bookingData.time}\nSeats: ${bookingData.seats.join(', ')}\nBus: ${bookingData.bus}\nTotal Paid: RWF ${bookingData.total.toLocaleString()}\n\nA confirmation has been sent to ${bookingData.phone}`);
+            
+            // Reset form
+            resetForm();
+        }
+
+        function resetForm() {
+            // Reset all selections
+            selectedRoute = null;
+            selectedSeats = [];
+            selectedPayment = null;
+            bookingData = {};
+            
+            // Reset form fields
+            document.getElementById('from').value = '';
+            document.getElementById('to').value = '';
+            document.getElementById('date').value = new Date().toISOString().split('T')[0];
+            document.getElementById('passengers').value = '1';
+            document.getElementById('phone').value = '';
+            document.getElementById('email').value = '';
+            
+            // Reset UI
+            document.querySelectorAll('.route-card').forEach(card => card.classList.remove('selected'));
+            document.querySelectorAll('.seat').forEach(seat => seat.classList.remove('selected'));
+            document.querySelectorAll('.payment-card').forEach(card => card.classList.remove('selected'));
+            
+            // Reset summary
+            document.getElementById('summary-route').textContent = '-';
+            document.getElementById('summary-date').textContent = '-';
+            document.getElementById('summary-time').textContent = '-';
+            document.getElementById('summary-seats').textContent = '-';
+            document.getElementById('summary-passengers').textContent = '1';
+            document.getElementById('summary-payment').textContent = '-';
+            document.getElementById('summary-total').textContent = 'RWF 0';
+            
+            // Reset steps
+            currentStep = 1;
+            document.querySelectorAll('.booking-section').forEach(section => section.style.display = 'none');
+            document.getElementById('route-section').style.display = 'block';
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById('step1').classList.add('active');
+            
+            // Reset buttons
+            document.getElementById('route-next').disabled = true;
+            document.getElementById('seat-next').disabled = true;
+            document.getElementById('payment-btn').disabled = true;
+        }
+
+        // Phone number validation
+        document.getElementById('phone').addEventListener('input', function() {
+            const phone = this.value;
+            const paymentBtn = document.getElementById('payment-btn');
+            
+            if (phone && selectedPayment) {
+                paymentBtn.disabled = false;
+            } else {
+                paymentBtn.disabled = true;
+            }
+        });
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        // Initialize particles
+        createParticles();
+    </script>
+</body>
+</html>
