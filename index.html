@@ -29,6 +29,7 @@
             align-items: center;
             justify-content: center;
             color: white;
+            overflow: hidden;
         }
 
         @keyframes gradientShift {
@@ -37,222 +38,74 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Moving image in hero section - Background layer */
-        .hero-moving-image {
+        /* Static image slider in background */
+        .hero-slider-container {
             position: absolute;
-            top: 20%;
-            left: -400px; /* Start from left side, off-screen */
-            width: 350px;
-            height: 250px;
-            background: rgba(255, 255, 255, 0.12); 
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            border: 0px solid rgba(255, 255, 255, 0.15);
-            overflow: hidden;
-            animation: windMove 15s ease-in-out infinite;
-            z-index: 0; /* Behind particles */
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            opacity: 0.85;
-        }
-
-        .hero-moving-image img {
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            opacity: 0.9;
-        }
-
-        .hero-moving-image::before {
-            
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 1.4rem;
-            font-weight: 700;
-            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
-            z-index: 3;
-        }
-
-        /* Enhanced wind-like movement with more dramatic motion */
-        @keyframes windMove {
-            0% {
-                transform: translateX(0px) translateY(0px) scale(1.1) rotate(-3deg);
-                opacity: 0;
-            }
-            8% {
-                opacity: 0.85;
-                transform: translateX(8vw) translateY(-15px) scale(1.08) rotate(-2deg);
-            }
-            20% {
-                transform: translateX(20vw) translateY(-35px) scale(1.05) rotate(0deg);
-                opacity: 0.9;
-            }
-            35% {
-                transform: translateX(35vw) translateY(-20px) scale(1.02) rotate(2deg);
-                opacity: 0.8;
-            }
-            50% {
-                transform: translateX(50vw) translateY(-45px) scale(0.98) rotate(-1deg);
-                opacity: 0.7;
-            }
-            65% {
-                transform: translateX(65vw) translateY(-25px) scale(0.94) rotate(1deg);
-                opacity: 0.6;
-            }
-            80% {
-                transform: translateX(80vw) translateY(-50px) scale(0.9) rotate(-2deg);
-                opacity: 0.4;
-            }
-            95% {
-                transform: translateX(95vw) translateY(-30px) scale(0.85) rotate(3deg);
-                opacity: 0.2;
-            }
-            100% {
-                transform: translateX(110vw) translateY(-60px) scale(0.8) rotate(0deg);
-                opacity: 0;
-            }
-        }
-
-        /* Additional background moving elements for wind effect */
-        .hero-moving-image2 {
-            position: absolute;
-            top: 55%;
-            left: -300px;
-            width: 250px;
-            height: 150px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-            animation: windMove2 18s ease-in-out infinite 3s;
             z-index: 0;
-            opacity: 0.7;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+            opacity: 0.3;
         }
 
-        .hero-moving-image2 img {
+        .hero-slider {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-slider-wrapper {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .hero-slide {
+            width: 33.333%;
+            height: 100%;
+            position: relative;
+        }
+
+        .hero-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.8;
         }
 
-        .hero-moving-image2::before {
-            
+        /* Floating decorative elements */
+        .hero-decorative-element {
             position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
-        }
-
-        @keyframes windMove2 {
-            0% {
-                transform: translateX(0px) translateY(0px) scale(1.05) rotate(2deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.7;
-                transform: translateX(10vw) translateY(25px) scale(1.02) rotate(1deg);
-            }
-            25% {
-                transform: translateX(25vw) translateY(40px) scale(0.98) rotate(-1deg);
-                opacity: 0.75;
-            }
-            40% {
-                transform: translateX(40vw) translateY(15px) scale(0.94) rotate(2deg);
-                opacity: 0.65;
-            }
-            55% {
-                transform: translateX(55vw) translateY(45px) scale(0.9) rotate(-1deg);
-                opacity: 0.55;
-            }
-            70% {
-                transform: translateX(70vw) translateY(20px) scale(0.86) rotate(1deg);
-                opacity: 0.4;
-            }
-            85% {
-                transform: translateX(85vw) translateY(50px) scale(0.82) rotate(-2deg);
-                opacity: 0.25;
-            }
-            100% {
-                transform: translateX(110vw) translateY(35px) scale(0.75) rotate(0deg);
-                opacity: 0;
-            }
-        }
-
-        /* Third moving element for enhanced wind effect */
-        .hero-moving-image3 {
-            position: absolute;
-            top: 75%;
-            left: -250px;
             width: 200px;
             height: 120px;
             background: rgba(255, 255, 255, 0.06);
             border-radius: 15px;
             backdrop-filter: blur(4px);
-           
             overflow: hidden;
-            animation: windMove3 22s ease-in-out infinite 8s;
             z-index: 0;
             opacity: 0.6;
             box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
         }
 
-        .hero-moving-image3 img {
+        .hero-decorative-element:nth-child(1) {
+            top: 20%;
+            right: 10%;
+            transform: rotate(-5deg);
+        }
+
+        .hero-decorative-element:nth-child(2) {
+            bottom: 15%;
+            left: 10%;
+            transform: rotate(3deg);
+        }
+
+        .hero-decorative-element img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             opacity: 0.7;
-        }
-
-        .hero-moving-image3::before {
-            content: '🛣️ EXPRESS';
-            position: absolute;
-            bottom: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 1rem;
-            font-weight: 600;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-        }
-
-        @keyframes windMove3 {
-            0% {
-                transform: translateX(0px) translateY(0px) scale(1) rotate(-1deg);
-                opacity: 0;
-            }
-            12% {
-                opacity: 0.6;
-                transform: translateX(12vw) translateY(-10px) scale(0.98) rotate(0deg);
-            }
-            30% {
-                transform: translateX(30vw) translateY(-25px) scale(0.94) rotate(1deg);
-                opacity: 0.65;
-            }
-            50% {
-                transform: translateX(50vw) translateY(-15px) scale(0.9) rotate(-1deg);
-                opacity: 0.5;
-            }
-            70% {
-                transform: translateX(70vw) translateY(-35px) scale(0.86) rotate(1deg);
-                opacity: 0.35;
-            }
-            90% {
-                transform: translateX(90vw) translateY(-20px) scale(0.82) rotate(-1deg);
-                opacity: 0.15;
-            }
-            100% {
-                transform: translateX(110vw) translateY(-40px) scale(0.78) rotate(0deg);
-                opacity: 0;
-            }
         }
 
         /* Floating particles */
@@ -653,18 +506,19 @@
                 align-items: center;
             }
 
-            .hero-moving-image {
-                width: 150px;
-                height: 100px;
-                top: 25%;
-                left: -200px;
-            }
-
-            .hero-moving-image2 {
+            .hero-decorative-element {
                 width: 120px;
                 height: 80px;
-                top: 55%;
-                left: -150px;
+            }
+
+            .hero-decorative-element:nth-child(1) {
+                top: 15%;
+                right: 5%;
+            }
+
+            .hero-decorative-element:nth-child(2) {
+                bottom: 10%;
+                left: 5%;
             }
 
             .video-overlay {
@@ -698,20 +552,27 @@
     <section id="home" class="hero">
         <div class="particles"></div>
         
-        <!-- Moving Images in Hero Section - Background layer -->
-        <div class="hero-moving-image">
-            <!-- Replace this src with your actual image URL -->
-            <img src="images/40012-Rwanda-Bus-image-Virunga-Express-removebg-preview.png"/>
+        <!-- Static background image slider -->
+        <div class="hero-slider-container">
+            <div class="hero-slider">
+                <div class="hero-slider-wrapper" id="heroSliderWrapper">
+                    <div class="hero-slide">
+                        <img src="images/40012-Rwanda-Bus-image-Virunga-Express-removebg-preview.png" alt="VIRUNGA Express Bus">
+                    </div>
+                    <div class="hero-slide">
+                        <img src="images/1607087864342.jfif" alt="Virunga Mountains">
+                    </div>
+                    <div class="hero-slide">
+                        <img src="images/FoC9Jd0aMAIUNi3.jpg" alt="Rwanda Roads">
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="hero-moving-image2">
-            <!-- Second moving element with mountain/landscape theme -->
-            <img src="images/40012-Rwanda-Bus-image-Virunga-Express-removebg-preview.png"/>
-        </div>
+    
         
         <div class="hero-content">
             <h1>VIRUNGA Express</h1>
-            <p>24 Years of Excellence • Connecting Rwanda's Northern & Western Regions Since 2001</p>
+            <p>24 Years of Excellence • Connecting Rwanda's Kigali, Northern, Southern & Western Regions Since 2001</p>
             <div class="cta-buttons">
                 <a href="#services" class="btn btn-primary">Our Services</a>
                 <a href="#contact" class="btn btn-secondary">Get Started</a>
@@ -872,6 +733,27 @@
     </footer>
 
     <script>
+        // Background image slider functionality
+        let heroCurrentIndex = 0;
+        const heroTotalSlides = 3;
+        const heroSlider = document.getElementById('heroSliderWrapper');
+
+        // Auto-slide functionality for background
+        let heroAutoSlideInterval = setInterval(heroNextSlide, 5000);
+
+        function heroUpdateSlider() {
+            const translateX = -heroCurrentIndex * 33.333;
+            heroSlider.style.transform = `translateX(${translateX}%)`;
+        }
+
+        function heroNextSlide() {
+            heroCurrentIndex = (heroCurrentIndex + 1) % heroTotalSlides;
+            heroUpdateSlider();
+        }
+
+        // Initialize slider
+        heroUpdateSlider();
+
         // Create floating particles
         function createParticles() {
             const particlesContainer = document.querySelector('.particles');
