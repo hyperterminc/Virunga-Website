@@ -427,14 +427,32 @@
             margin: 5% auto;
             padding: 2rem;
             border-radius: 15px;
-            max-width: 500px;
-            text-align: center;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
             position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+            background: none;
+            border: none;
+            z-index: 10;
+        }
+
+        .close-modal:hover {
+            color: #ef4444;
         }
 
         .modal h3 {
             color: #2d8659;
             margin-bottom: 1rem;
+            text-align: center;
         }
 
         .ussd-code {
@@ -447,7 +465,10 @@
             color: #1e293b;
             margin: 1rem 0;
             border: 2px solid #e5e7eb;
+            text-align: center;
         }
+
+        /* Navigation */
         nav {
             position: fixed;
             top: 0;
@@ -472,6 +493,7 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
@@ -494,6 +516,7 @@
         .nav-links a:hover {
             opacity: 0.8;
         }
+
         .hero {
             min-height: 50vh;
             background: linear-gradient(-45deg, #1a5f3f, #2d8659, #1e3a8a, #3730a3);
@@ -548,6 +571,209 @@
                 opacity: 0;
             }
         }
+
+        /* Ticket Styles - FIXED */
+        .ticket-container {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .ticket {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            margin: 1rem 0;
+            max-width: 100%;
+        }
+
+        .ticket-header {
+            background: linear-gradient(135deg, #1a5f3f, #2d8659);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .ticket-header h3 {
+            font-size: 1.8rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .ticket-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .ticket-body {
+            padding: 2rem;
+        }
+
+        .ticket-main-info {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .ticket-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .ticket-info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+
+        .ticket-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .ticket-label {
+            color: #64748b;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .ticket-value {
+            color: #1e293b;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .ticket-qr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+
+        .qr-code img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .passenger-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .passenger-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #2d8659;
+        }
+
+        .passenger-card h4 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .passenger-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .passenger-field {
+            text-align: center;
+        }
+
+        .passenger-field strong {
+            display: block;
+            color: #64748b;
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .passenger-field span {
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .ticket-footer {
+            background: #f8fafc;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #64748b;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        /* Passenger Form */
+        .passenger-form {
+            margin-top: 1.5rem;
+        }
+
+        .passenger-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Print Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .ticket, .ticket * {
+                visibility: visible;
+            }
+            .ticket {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                box-shadow: none;
+                border: none;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .ticket-main-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .passenger-info {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .modal-content {
+                margin: 2% auto;
+                max-width: 95%;
+                padding: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -563,17 +789,17 @@
             </ul>
         </div>
     </nav>
+    
     <div class="container">
         <!-- Header -->
-    <section id="home" class="hero">
-        <div class="container">
-        <!-- Header -->
-        <div class="particles"></div>
-        <div class="hero-content">
-            <h1>Book Your Journey</h1>
-            <p>VIRUNGA Express - Reliable transport across Rwanda's northern & western regions</p>
-        </div>
-    </section>
+        <section id="home" class="hero">
+            <div class="particles"></div>
+            <div class="hero-content">
+                <h1>Book Your Journey</h1>
+                <p>VIRUNGA Express - Reliable transport across Rwanda's northern & western regions</p>
+            </div>
+        </section>
+        
         <!-- Progress Steps -->
         <div class="progress-steps">
             <div class="step active" id="step1">
@@ -754,11 +980,63 @@
     <!-- Payment Modal -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
             <h3>Complete Your Payment</h3>
-            <p>Dial the USSD code below on your phone to complete the payment:</p>
-            <div class="ussd-code" id="ussd-code">*XXX#</div>
-            <p>Follow the prompts to pay <strong id="modal-amount">RWF 0</strong></p>
-            <button class="btn btn-primary" onclick="closeModal()">Got it!</button>
+            <p style="text-align: center;">Dial the USSD code below on your phone to complete the payment:</p>
+            <div class="ussd-code" id="ussd-code">*182*6*1*123456#</div>
+            <p style="text-align: center;">Follow the prompts to pay <strong id="modal-amount">RWF 0</strong></p>
+            
+            <div class="passenger-form" id="passengerForm">
+                <h4>Passenger Information</h4>
+                <div id="passengerFieldsContainer">
+                    <!-- Passenger fields will be added here -->
+                </div>
+            </div>
+            
+            <button class="btn btn-primary" onclick="verifyPayment()" id="verify-btn">I've Paid</button>
+        </div>
+    </div>
+
+    <!-- Ticket Modal -->
+    <div id="ticketModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeTicketModal()">&times;</button>
+            <div class="ticket-container">
+                <h3>Your Booking Confirmation</h3>
+                <p>Your ticket has been booked successfully. Please show this at the boarding point.</p>
+                
+                <div class="ticket" id="printableTicket">
+                    <div class="ticket-header">
+                        <h3>VIRUNGA EXPRESS</h3>
+                        <p>Fast • Reliable • Connected</p>
+                    </div>
+                    <div class="ticket-body">
+                        <div class="ticket-main-info">
+                            <div class="ticket-details" id="ticketDetails">
+                                <!-- Ticket details will be populated here -->
+                            </div>
+                            <div class="ticket-qr">
+                                <div class="qr-code" id="qrCode">
+                                    <!-- QR code will be populated here -->
+                                </div>
+                                <small>Scan at boarding</small>
+                            </div>
+                        </div>
+                        <div class="passenger-section" id="passengerSection">
+                            <!-- Passenger information will be populated here -->
+                        </div>
+                    </div>
+                    <div class="ticket-footer">
+                        <p>Thank you for traveling with us! Boarding starts 30 minutes before departure.</p>
+                        <p>Contact: +250 788 123 456 | info@virungaexpress.rw</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;" class="no-print">
+                    <button class="btn btn-secondary" onclick="closeTicketModal()" style="flex: 1;">Close</button>
+                    <button class="btn btn-primary" onclick="window.print()" style="flex: 1;">Print Ticket</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -808,6 +1086,9 @@
             document.getElementById('to').addEventListener('change', searchRoutes);
             document.getElementById('date').addEventListener('change', updateSummary);
             document.getElementById('passengers').addEventListener('change', updateSummary);
+            
+            // Initialize particles
+            createParticles();
         });
 
         function searchRoutes() {
@@ -987,7 +1268,6 @@
             
             // Update passengers
             document.getElementById('summary-passengers').textContent = passengers;
-        // Continue from where we left off...
 
             // Update payment method
             if (selectedPayment) {
@@ -1016,13 +1296,18 @@
                 date: document.getElementById('date').value,
                 time: selectedRoute.time,
                 seats: selectedSeats,
-                passengers: document.getElementById('passengers').value,
+                passengers: parseInt(document.getElementById('passengers').value),
                 paymentMethod: selectedPayment === 'mtn' ? 'MTN Mobile Money' : 'Airtel Money',
                 phone: phone,
                 email: document.getElementById('email').value,
                 total: selectedRoute.price * selectedSeats.length,
-                bus: selectedRoute.bus
+                bus: selectedRoute.bus,
+                bookingRef: generateBookingRef(),
+                passengerInfo: []
             };
+            
+            // Generate passenger fields
+            generatePassengerFields();
             
             // Show payment modal
             showPaymentModal();
@@ -1035,27 +1320,144 @@
             document.getElementById('ussd-code').textContent = ussdCode;
             document.getElementById('modal-amount').textContent = `RWF ${bookingData.total.toLocaleString()}`;
             modal.style.display = 'block';
-            
-            // In a real app, you would verify payment here
-            // For demo, we'll just simulate successful payment after 5 seconds
-            setTimeout(() => {
-                closeModal();
-                completeBooking();
-            }, 5000);
         }
 
         function closeModal() {
             document.getElementById('paymentModal').style.display = 'none';
         }
 
-        function completeBooking() {
-            // In a real app, you would send this data to your backend
-            console.log('Booking completed:', bookingData);
+        function generatePassengerFields() {
+            const container = document.getElementById('passengerFieldsContainer');
+            container.innerHTML = '';
             
-            // Show success message
-            alert(`Booking confirmed!\n\nRoute: ${bookingData.route}\nDate: ${new Date(bookingData.date).toLocaleDateString()}\nTime: ${bookingData.time}\nSeats: ${bookingData.seats.join(', ')}\nBus: ${bookingData.bus}\nTotal Paid: RWF ${bookingData.total.toLocaleString()}\n\nA confirmation has been sent to ${bookingData.phone}`);
+            const passengerCount = parseInt(document.getElementById('passengers').value);
             
-            // Reset form
+            for (let i = 1; i <= passengerCount; i++) {
+                const passengerDiv = document.createElement('div');
+                passengerDiv.className = 'passenger-fields';
+                passengerDiv.innerHTML = `
+                    <div class="form-group">
+                        <label for="passenger${i}_name">Passenger ${i} Full Name</label>
+                        <input type="text" id="passenger${i}_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="passenger${i}_id">ID Number (Optional)</label>
+                        <input type="text" id="passenger${i}_id">
+                    </div>
+                `;
+                container.appendChild(passengerDiv);
+            }
+        }
+
+        function verifyPayment() {
+            // Collect passenger information
+            const passengerCount = parseInt(document.getElementById('passengers').value);
+            bookingData.passengerInfo = [];
+            
+            for (let i = 1; i <= passengerCount; i++) {
+                const name = document.getElementById(`passenger${i}_name`).value;
+                const id = document.getElementById(`passenger${i}_id`).value;
+                
+                if (!name.trim()) {
+                    alert(`Please enter name for Passenger ${i}`);
+                    return;
+                }
+                
+                bookingData.passengerInfo.push({
+                    name: name.trim(),
+                    id: id.trim() || 'N/A',
+                    seat: selectedSeats[i-1]
+                });
+            }
+            
+            // Close payment modal
+            closeModal();
+            
+            // Generate and show ticket
+            generateTicket();
+        }
+
+        function generateBookingRef() {
+            // Generate a random booking reference
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let result = 'VE-';
+            for (let i = 0; i < 6; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        function generateTicket() {
+            // Populate ticket details
+            const ticketDetails = document.getElementById('ticketDetails');
+            ticketDetails.innerHTML = `
+                <div class="ticket-info-item">
+                    <span class="ticket-label">Booking Reference:</span>
+                    <span class="ticket-value">${bookingData.bookingRef}</span>
+                </div>
+                <div class="ticket-info-item">
+                    <span class="ticket-label">Route:</span>
+                    <span class="ticket-value">${bookingData.route}</span>
+                </div>
+                <div class="ticket-info-item">
+                    <span class="ticket-label">Date:</span>
+                    <span class="ticket-value">${new Date(bookingData.date).toLocaleDateString()}</span>
+                </div>
+                <div class="ticket-info-item">
+                    <span class="ticket-label">Departure Time:</span>
+                    <span class="ticket-value">${bookingData.time}</span>
+                </div>
+                <div class="ticket-info-item">
+                    <span class="ticket-label">Bus Number:</span>
+                    <span class="ticket-value">${bookingData.bus}</span>
+                </div>
+                <div class="ticket-info-item">
+                    <span class="ticket-label">Payment Method:</span>
+                    <span class="ticket-value">${bookingData.paymentMethod}</span>
+                </div>
+                <div class="ticket-info-item">
+                    <span class="ticket-label">Amount Paid:</span>
+                    <span class="ticket-value">RWF ${bookingData.total.toLocaleString()}</span>
+                </div>
+            `;
+            
+            // Populate QR Code
+            const qrCode = document.getElementById('qrCode');
+            qrCode.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(bookingData.bookingRef)}" alt="QR Code">`;
+            
+            // Populate passenger information
+            const passengerSection = document.getElementById('passengerSection');
+            passengerSection.innerHTML = '<h4 style="color: #1e293b; margin-bottom: 1rem;">Passenger Information</h4>';
+            
+            bookingData.passengerInfo.forEach((passenger, index) => {
+                const passengerCard = document.createElement('div');
+                passengerCard.className = 'passenger-card';
+                passengerCard.innerHTML = `
+                    <h4>Passenger ${index + 1}</h4>
+                    <div class="passenger-info">
+                        <div class="passenger-field">
+                            <strong>Name:</strong>
+                            <span>${passenger.name}</span>
+                        </div>
+                        <div class="passenger-field">
+                            <strong>Seat Number:</strong>
+                            <span>${passenger.seat}</span>
+                        </div>
+                        <div class="passenger-field">
+                            <strong>ID Number:</strong>
+                            <span>${passenger.id}</span>
+                        </div>
+                    </div>
+                `;
+                passengerSection.appendChild(passengerCard);
+            });
+            
+            // Show ticket modal
+            document.getElementById('ticketModal').style.display = 'block';
+        }
+
+        function closeTicketModal() {
+            document.getElementById('ticketModal').style.display = 'none';
             resetForm();
         }
 
@@ -1088,6 +1490,9 @@
             document.getElementById('summary-payment').textContent = '-';
             document.getElementById('summary-total').textContent = 'RWF 0';
             
+            // Clear available routes
+            document.getElementById('available-routes').innerHTML = '';
+            
             // Reset steps
             currentStep = 1;
             document.querySelectorAll('.booking-section').forEach(section => section.style.display = 'none');
@@ -1112,6 +1517,7 @@
                 paymentBtn.disabled = true;
             }
         });
+
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
@@ -1121,9 +1527,12 @@
                 navbar.classList.remove('scrolled');
             }
         });
+
         // Create floating particles
         function createParticles() {
             const particlesContainer = document.querySelector('.particles');
+            if (!particlesContainer) return;
+            
             const particleCount = 50;
             
             for (let i = 0; i < particleCount; i++) {
@@ -1135,6 +1544,7 @@
                 particlesContainer.appendChild(particle);
             }
         }
+
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1148,8 +1558,6 @@
                 }
             });
         });
-        // Initialize particles
-        createParticles();
     </script>
 </body>
 </html>
